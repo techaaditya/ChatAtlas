@@ -1,0 +1,40 @@
+﻿✔ provider IDs and normalized per-viewer ideas do not count twice (7.5794ms)
+✔ support measures distinct people, not repeated suggestions (1.9515ms)
+✔ wildcard ideas survive local grouping (0.7518ms)
+✔ limits bound ideas and source mode cannot be mixed (1.1124ms)
+✔ blueprints reject unsupported modules, budget overflow and invented sources (2.4462ms)
+✔ draft recipe preserves actual selected contribution IDs (2.299ms)
+✔ same seed and actions produce identical time series (1.422ms)
+✔ a discharge route changes the storm outcome (0.5042ms)
+✔ pause prevents advancement and resolved rounds cannot be ticked again (0.7058ms)
+✔ viewer action is replaced within each beat rather than stacked (2.1507ms)
+✔ names are opt-in, internal identifiers and receipts never reach public snapshots (0.7344ms)
+✔ forget purges sources and credits, invalidates draft, preserves mechanics and activity log (0.6249ms)
+✔ theme renaming updates labels while preserving stable IDs (0.3199ms)
+✔ theme merging redirects ideas and boosts without losing sources (0.3415ms)
+✔ moving ideas across themes respects overrides and cluster counts (0.2326ms)
+✔ per-module attribution validates existing sources and isolates module citations (0.5668ms)
+✔ frost descent challenge requires thermal overload venting to survive extreme cryo hazard (0.4599ms)
+✔ forget purges moduleSources as well as whole-blueprint sourceIds (0.2581ms)
+✔ revision retains contributors and increments versions (0.274ms)
+✔ local proposal requires no model credentials (5.6806ms)
+✔ cosine handles zero vectors and identity (0.3158ms)
+✔ embedding adapter rejects malformed counts and nonfinite values (1.2069ms)
+✔ provider failure does not mutate the draft or session (0.6451ms)
+✔ invented source references from a model are rejected (0.8248ms)
+✔ valid model proposal produces moduleSources and respects custom theme labels in semanticThemes (4.04ms)
+✔ an interrupted saved storm recovers paused without losing blueprint (18.784ms)
+✔ semantic themes honor response indices and return stable IDs (2.0678ms)
+✔ valid model proposal is accepted only after independent business validation (2.8427ms)
+✔ HTTP product journey, privilege boundaries, and persistence (395.6273ms)
+✔ EventSub welcome subscribes to authorized channel and normalizes real-shaped events (43.7941ms)
+✔ EventSub revocation triggers gap notification and halts connection (3.1578ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 663.3151
+
