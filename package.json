@@ -1,0 +1,14 @@
+{
+  "name": "chatatlas-foundry",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.mjs",
+    "demo": "node --env-file-if-exists=.env src/server.mjs --demo",
+    "key": "node --env-file-if-exists=.env scripts/show-key.mjs",
+    "test": "node --test",
+    "check": "node scripts/check.mjs"
+  }
+}
