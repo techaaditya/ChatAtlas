@@ -4,7 +4,7 @@ import {resolve,dirname,join} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {timingSafeEqual,randomBytes,randomUUID} from 'node:crypto';
 import {openStore,secret} from './store.mjs';
-import {fresh,view,contribute,clusters,recipe,approve,start,step,revise,validateBlueprint,CATALOG,AppError,log,text,THEMES,renameTheme,mergeThemes,moveIdea} from './engine.mjs';
+import {fresh,view,contribute,clusters,recipe,approve,start,step,revise,validateBlueprint,CATALOG,SCENARIOS,AppError,log,text,THEMES,renameTheme,mergeThemes,moveIdea} from './engine.mjs';
 import {propose,semanticThemes} from './intelligence.mjs';
 import {TwitchConnection} from './twitch.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
@@ -47,6 +47,7 @@ export function createApp({env=process.env,mode='demo'}={}){
     case '/api/step':result=mutate(s=>step(s));break;
     case '/api/revise':result=mutate(revise);break;
     case '/api/restore':result=mutate(s=>{if(s.phase==='playing')throw new AppError('Finish the storm first');const h=s.history.find(h=>h.id===b.id);if(!h)throw new AppError('Unknown version');s.draft=validateBlueprint(h.blueprint,s);s.phase='collecting';});break;
+    case '/api/scenario':result=mutate(s=>{if(s.phase!=='collecting')throw new AppError('Open a revision first');if(!SCENARIOS[b.scenario])throw new AppError('Unknown scenario');s.scenario=b.scenario;s.prompt=SCENARIOS[b.scenario].prompt;log(s,`Switched challenge to ${SCENARIOS[b.scenario].name}`);});break;
     case '/api/theme/rename':result=mutate(s=>renameTheme(s,b.themeId,b.label));break;
     case '/api/theme/merge':result=mutate(s=>mergeThemes(s,b.from,b.to));break;
     case '/api/move':result=mutate(s=>moveIdea(s,b.id,b.theme));break;
