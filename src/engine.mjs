@@ -23,11 +23,11 @@ export const SCENARIOS = Object.freeze({
   }
 });
 export const THEMES = [
-  {id:'energy',label:'Harvest the storm',color:'#9c8cff',words:['storm','lightning','electric','power','energy','harvest','collector','solar','sun']},
-  {id:'storage',label:'Save the surplus',color:'#64dbdd',words:['battery','storage','store','capacitor','reserve','cell']},
-  {id:'shield',label:'Protect the city',color:'#ffbb75',words:['shield','protect','barrier','dome','defend','armor']},
-  {id:'grounding',label:'Let energy escape',color:'#9cdda9',words:['ground','grounding','vent','discharge','release','overload','drain']},
-  {id:'life',label:'Grow resilience',color:'#ef9fd0',words:['garden','tree','grow','repair','plant','heal','roots']}
+  {id:'energy',label:'Harvest the storm',color:'#8B9A6E',words:['storm','lightning','electric','power','energy','harvest','collector','solar','sun']},
+  {id:'storage',label:'Save the surplus',color:'#A4B685',words:['battery','storage','store','capacitor','reserve','cell']},
+  {id:'shield',label:'Protect the city',color:'#D8BA84',words:['shield','protect','barrier','dome','defend','armor']},
+  {id:'grounding',label:'Let energy escape',color:'#6F8867',words:['ground','grounding','vent','discharge','release','overload','drain']},
+  {id:'life',label:'Grow resilience',color:'#BFCC9E',words:['garden','tree','grow','repair','plant','heal','roots']}
 ];
 export class AppError extends Error { constructor(message,status=400){super(message);this.status=status;} }
 export function fresh(mode='demo') { return {schema:1,id:randomUUID(),revision:0,mode,phase:'collecting',scenario:'tempest',prompt:'How should our floating city survive its first storm?',ideas:[],credits:[],boosts:{},overrides:{},themeLabels:{},themeMerges:{},draft:null,history:[],run:null,receipts:[],activity:[],metrics:{accepted:0,rejected:0},intelligence:'Local rules',createdAt:new Date().toISOString()}; }
@@ -35,7 +35,7 @@ export function text(value,max=240) { if(typeof value!=='string')throw new AppEr
 const norm=s=>s.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 export function classify(value) { const tokens=new Set(norm(value).split(' '));let best='wildcard',n=0;for(const t of THEMES){const score=t.words.filter(w=>tokens.has(w)).length;if(score>0&&score>=n){n=score;best=t.id;}}return best; }
 export function log(s,message){s.activity.unshift({at:new Date().toISOString(),message});s.activity=s.activity.slice(0,30);}
-export function clusters(s){const labels=s.themeLabels||{},merges=s.themeMerges||{};const list=Object.fromEntries([...THEMES,{id:'wildcard',label:'Unexpected possibilities',color:'#dce5ef'}].map(t=>[t.id,{...t,label:labels[t.id]||t.label,ideas:[],support:0}]));for(const idea of s.ideas){let id=s.overrides?.[idea.id]||idea.theme;if(merges[id])id=merges[id];if(list[id])list[id].ideas.push(idea);else list.wildcard.ideas.push(idea);}for(const c of Object.values(list)){c.support=new Set(c.ideas.map(i=>i.userId)).size;c.boosts=Object.values(s.boosts||{}).filter(id=>id===c.id).length;}return Object.values(list).filter(c=>c.ideas.length);}
+export function clusters(s){const labels=s.themeLabels||{},merges=s.themeMerges||{};const list=Object.fromEntries([...THEMES,{id:'wildcard',label:'Unexpected possibilities',color:'#EAE2D6'}].map(t=>[t.id,{...t,label:labels[t.id]||t.label,ideas:[],support:0}]));for(const idea of s.ideas){let id=s.overrides?.[idea.id]||idea.theme;if(merges[id])id=merges[id];if(list[id])list[id].ideas.push(idea);else list.wildcard.ideas.push(idea);}for(const c of Object.values(list)){c.support=new Set(c.ideas.map(i=>i.userId)).size;c.boosts=Object.values(s.boosts||{}).filter(id=>id===c.id).length;}return Object.values(list).filter(c=>c.ideas.length);}
 export function contribute(s,{userId,name='Viewer',message,id=randomUUID(),source='demo'}){
   if(s.receipts.includes(id))return {duplicate:true};
   s.receipts.push(id);s.receipts=s.receipts.slice(-5000);

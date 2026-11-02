@@ -1,20 +1,181 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0c1020"><title>ChatAtlas Foundry — Ideas become worlds</title><link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121813">
+  <title>ChatAtlas Foundry — Ideas become worlds</title>
+  <link rel="icon" href="/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
 <body>
-<section id="login" class="login"><div class="login-card"><span class="eyebrow">A LIVE CO-CREATION STUDIO</span><h1>Small ideas.<br><em>Extraordinary worlds.</em></h1><p>Turn a Twitch community's imagination into a city you can build, test, and make better together.</p><form id="login-form"><label for="key">Control key</label><input id="key" type="password" autocomplete="off" placeholder="Run npm run key, then paste here" required><button class="primary">Enter the Foundry <span>↗</span></button></form><p class="hint">Local demo needs no Twitch or AI credentials. Keep your control key private.</p><p id="login-error" role="alert"></p></div><div class="login-art"><div class="orbit one"></div><div class="orbit two"></div><div class="orb"></div><span>IMAGINATION → POSSIBILITY → PLAY</span></div></section>
+<section id="login" class="login">
+  <div class="login-card">
+    <span class="eyebrow">A LIVE CO-CREATION STUDIO</span>
+    <h1>Small ideas.<br><em>Extraordinary worlds.</em></h1>
+    <p>Turn a Twitch community's collective imagination into a living city you can build, stress-test, and refine together in real time.</p>
+    <form id="login-form">
+      <label for="key">Control key</label>
+      <input id="key" type="password" autocomplete="off" placeholder="Run npm run key, then paste here" required>
+      <button class="primary">Enter the Foundry <span>↗</span></button>
+    </form>
+    <p class="hint">Local demo mode needs no Twitch or AI credentials. Keep your broadcaster control key private.</p>
+    <p id="login-error" role="alert"></p>
+  </div>
+  <div class="login-art" aria-hidden="true">
+    <div class="orbit one"></div>
+    <div class="orbit two"></div>
+    <div class="orb"></div>
+    <span>IMAGINATION → POSSIBILITY → PLAY</span>
+  </div>
+</section>
+
 <div id="app" hidden>
- <header class="topbar"><a class="brand" href="/"><img src="/icon.svg" alt=""><span>ChatAtlas <b>Foundry</b></span></a><nav><span class="nav-active">Creation studio</span><button id="open-overlay" class="quiet">Open stage ↗</button></nav><div class="top-actions"><span id="connection" class="pill">Connecting</span><span id="mode" class="pill"></span><button id="export" class="quiet">Export artifact ↓</button></div></header>
- <main>
-  <section class="intro"><div><span class="eyebrow">YOUR COMMUNITY, MADE TANGIBLE</span><h1>What will we <em>make together?</em></h1><p id="prompt-display"></p></div><div class="intro-side"><div class="scenario-selector" id="scenario-selector"><span class="eyebrow">CHALLENGE SCENARIO</span><div class="scenario-buttons"><button id="scenario-tempest" class="small pill current">The Great Tempest</button><button id="scenario-frost" class="small pill">The Frost Descent</button></div></div><span id="intelligence" class="pill"></span><button id="copy-overlay" class="quiet">Copy OBS stage URL ↗</button></div></section>
-  <div class="journey" id="journey"></div>
-  <section class="workspace">
-   <aside class="panel ideas-panel"><div class="panel-heading"><div><span class="eyebrow">01 / LISTEN</span><h2>The idea stream</h2></div><span id="idea-count" class="count">0</span></div><p class="muted">Type <code>!idea your thought</code> in chat. Five ideas per person. Names appear only after <code>!credit on</code>.</p><div class="toolbar"><button id="seed" class="small">Load demo ideas</button><button id="semantic" class="small">Semantic grouping</button></div><div id="ideas" class="idea-list"></div><form id="contribution-form"><label for="message">Demo contribution</label><div class="input-row"><input id="viewer" aria-label="Demo viewer name" placeholder="Viewer" value="Guest" maxlength="30"><input id="message" placeholder="Use the storm as our power source" maxlength="240" required></div><button class="small full">Send demo idea ↗</button></form></aside>
-   <section class="panel stage-panel"><div class="panel-heading"><div><span class="eyebrow">02 / DISCOVER</span><h2 id="stage-title">A constellation of possibility</h2></div><span id="contributors" class="pill"></span></div><div class="canvas-wrap"><canvas id="scene" aria-label="Idea constellation and playable floating city"></canvas><div class="stage-caption"><span class="live-dot"></span><span id="stage-caption">Every perspective is a starting point.</span></div></div><div id="clusters" class="clusters"></div><div id="run-stats" class="run-stats"></div><div id="demo-actions" class="toolbar demo-actions"><button id="demo-store" class="small">Demo: store energy</button><button id="demo-shield" class="small">Demo: strengthen shield</button><button id="demo-vent" class="small">Demo: release overload</button></div><div class="stage-footer"><p id="participate">Select a theme to turn ideas into a blueprint.</p><div class="toolbar"><button id="revise" class="small">Open revision ↺</button><button id="pause" class="small">Pause</button><button id="step" class="small">Advance beat</button></div></div></section>
-   <aside class="panel blueprint-panel"><div class="panel-heading"><div><span class="eyebrow">03 / MAKE</span><h2>The next possibility</h2></div><span class="spark">✧</span></div><div id="blueprint"></div><div class="history-heading"><h3>Creation history</h3><span class="muted">Same storm. Better ideas.</span></div><div id="history"></div></aside>
-  </section>
-  <section class="lower-grid"><div class="panel"><div class="panel-heading"><div><span class="eyebrow">HOST CONTROLS</span><h2>Keep the show yours.</h2></div></div><div class="control-row"><button id="twitch-auth" class="small">Authorize Twitch</button><button id="twitch-connect" class="small">Connect saved account</button><button id="twitch-disconnect" class="small">Disconnect</button><button id="reset" class="small danger">New session</button></div><p id="twitch-status" class="muted"></p><form id="prompt-form" class="input-row"><input id="prompt-input" aria-label="Session prompt" maxlength="200" placeholder="Ask your community a question"><button class="small">Update prompt</button></form></div><div class="panel"><span class="eyebrow">THE STORY SO FAR</span><div id="activity" class="activity"></div></div></section>
-  <footer>Built for shared imagination. <span>Local rules and optional AI are labeled. Demo input is never live Twitch footage.</span></footer>
- </main>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/icon.svg" alt="" width="34" height="34">
+      <span>ChatAtlas <b>Foundry</b></span>
+    </a>
+    <nav>
+      <span class="nav-active">Creation studio</span>
+      <button id="open-overlay" class="quiet">Open stage ↗</button>
+    </nav>
+    <div class="top-actions">
+      <span id="connection" class="pill">Connecting</span>
+      <span id="mode" class="pill"></span>
+      <button id="export" class="quiet">Export artifact ↓</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <span class="eyebrow">YOUR COMMUNITY, MADE TANGIBLE</span>
+        <h1>What will we <em>make together?</em></h1>
+        <p id="prompt-display"></p>
+      </div>
+      <div class="intro-side">
+        <div class="scenario-selector" id="scenario-selector">
+          <span class="eyebrow">CHALLENGE SCENARIO</span>
+          <div class="scenario-buttons">
+            <button id="scenario-tempest" class="small pill current">The Great Tempest</button>
+            <button id="scenario-frost" class="small pill">The Frost Descent</button>
+          </div>
+        </div>
+        <span id="intelligence" class="pill"></span>
+        <button id="copy-overlay" class="quiet">Copy OBS stage URL ↗</button>
+      </div>
+    </section>
+
+    <div class="journey" id="journey"></div>
+
+    <section class="workspace">
+      <aside class="panel ideas-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">01 / LISTEN</span>
+            <h2>The idea stream</h2>
+          </div>
+          <span id="idea-count" class="count">0</span>
+        </div>
+        <p class="muted">Type <code>!idea your thought</code> in chat. Five ideas per person. Names appear only after <code>!credit on</code>.</p>
+        <div class="toolbar">
+          <button id="seed" class="small">Load demo ideas</button>
+          <button id="semantic" class="small">Semantic grouping</button>
+        </div>
+        <div id="ideas" class="idea-list"></div>
+        <form id="contribution-form">
+          <label for="message">Demo contribution</label>
+          <div class="input-row">
+            <input id="viewer" aria-label="Demo viewer name" placeholder="Viewer" value="Guest" maxlength="30">
+            <input id="message" placeholder="Use the storm as our power source" maxlength="240" required>
+          </div>
+          <button class="small full">Send demo idea ↗</button>
+        </form>
+      </aside>
+
+      <section class="panel stage-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">02 / DISCOVER</span>
+            <h2 id="stage-title">A constellation of possibility</h2>
+          </div>
+          <span id="contributors" class="pill"></span>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="scene" aria-label="Idea constellation and playable floating city"></canvas>
+          <div class="stage-caption">
+            <span class="live-dot"></span>
+            <span id="stage-caption">Every perspective is a starting point.</span>
+          </div>
+        </div>
+        <div id="clusters" class="clusters"></div>
+        <div id="run-stats" class="run-stats"></div>
+        <div id="demo-actions" class="toolbar demo-actions">
+          <button id="demo-store" class="small">Demo: store energy</button>
+          <button id="demo-shield" class="small">Demo: strengthen shield</button>
+          <button id="demo-vent" class="small">Demo: release overload</button>
+        </div>
+        <div class="stage-footer">
+          <p id="participate">Select a theme to turn ideas into a blueprint.</p>
+          <div class="toolbar">
+            <button id="revise" class="small">Open revision ↺</button>
+            <button id="pause" class="small">Pause</button>
+            <button id="step" class="small">Advance beat</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel blueprint-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">03 / MAKE</span>
+            <h2>The next possibility</h2>
+          </div>
+          <span class="spark">✧</span>
+        </div>
+        <div id="blueprint"></div>
+        <div class="history-heading">
+          <h3>Creation history</h3>
+          <span class="muted">Same storm. Better ideas.</span>
+        </div>
+        <div id="history"></div>
+      </aside>
+    </section>
+
+    <section class="lower-grid">
+      <div class="panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">HOST CONTROLS</span>
+            <h2>Keep the show yours.</h2>
+          </div>
+        </div>
+        <div class="control-row">
+          <button id="twitch-auth" class="small">Authorize Twitch</button>
+          <button id="twitch-connect" class="small">Connect saved account</button>
+          <button id="twitch-disconnect" class="small">Disconnect</button>
+          <button id="reset" class="small danger">New session</button>
+        </div>
+        <p id="twitch-status" class="muted"></p>
+        <form id="prompt-form" class="input-row">
+          <input id="prompt-input" aria-label="Session prompt" maxlength="200" placeholder="Ask your community a question">
+          <button class="small">Update prompt</button>
+        </form>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">THE STORY SO FAR</span>
+        <div id="activity" class="activity"></div>
+      </div>
+    </section>
+
+    <footer>Built for shared imagination. <span>Local rules and optional AI are labeled. Demo input is never live Twitch footage.</span></footer>
+  </main>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
-</body></html>
+</body>
+</html>
