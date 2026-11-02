@@ -4,3 +4,11 @@ node_modules/
 coverage/
 test-results/
 *.log
+screenshots/
+demo_video/
+raw_recordings/
+video_assets/
+segments/
+audio/
+*.mp4
+*.webm
